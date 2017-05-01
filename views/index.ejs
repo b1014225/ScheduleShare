@@ -1,0 +1,104 @@
+ <% layout('layout') %>
+<div class="container">
+<div id="form_wrapper">
+
+<form action="/" method="post" class="form">
+  日付/時刻
+  <br>
+  <select name="year">
+    <% for(var i=2017;i <= 2020;i++){%>
+    <option value="<%=i%>"><%=i%></option>
+    <%};%>
+  </select>年
+  <select name="month">
+    <% for(var i=1;i <= 12;i++){%>
+    <option value="<%=i-1%>"><%=i%></option>
+    <%};%>
+  </select>月
+  <select name="day">
+    <% for(var i=1;i<= 31;i++){%>
+    <option value="<%=i%>"><%=i%></option>
+    <%};%>
+  </select>日
+  <select name="hour">
+    <%for(var i=0;i<=23;i++){%>
+      <%if(String(i).length==1){%>
+    <option value="<%='0'+i%>"><%='0'+i%></option>
+    <%  }else if(String(i).length>1){%>
+      <option value="<%=i%>"><%=i%></option>
+      <%  };%>
+    <%};%>
+  </select>時
+  <select name="minute">
+    <%for(var i=0;i<=59;i++){%>
+      <%if(String(i).length==1){%>
+    <option value="<%='0'+i%>"><%='0'+i%></option>
+<%  }else if(String(i).length>1){%>
+    <option value="<%=i%>"><%=i%></option>
+<%  };%>
+    <%};%>
+  </select>分〜
+  <br>
+  タイトル<br><input class="form_title" type="text" name="title" placeholder="タイトルを入力してください" required><br>
+  内容<br><textarea name="content" class=" form_content" placeholder="内容を入力してください※入力は必須です"required></textarea><br>
+  <button class="buttonType"type="submit" class="form_button" >スケジュール作成！</button>
+</form>
+
+</div>
+
+<% schedules.forEach(function(sche){%>
+  <ul>
+    <li>
+      タイトル：<%=sche.title%>
+    </li>
+    <li>
+      内容：<%=sche.content%>
+    </li>
+    <li>
+      <%=sche.scheduleAt%><%=sche.id%><form action="/<%=sche.id%>" method="post"><input type="hidden" name="_method" value="DELETE"><input type="submit" value="delete!"></form>
+      <form action="/<%=sche.id%>" method="post"><input type="hidden" name="_method" value="PUT">
+        日付/時刻
+        <br>
+        <select name="year">
+          <% for(var i=2017;i <= 2020;i++){%>
+          <option value="<%=i%>"><%=i%></option>
+          <%};%>
+        </select>年
+        <select name="month">
+          <% for(var i=1;i <= 12;i++){%>
+          <option value="<%=i-1%>"><%=i%></option>
+          <%};%>
+        </select>月
+        <select name="day">
+          <% for(var i=1;i<= 31;i++){%>
+          <option value="<%=i%>"><%=i%></option>
+          <%};%>
+        </select>日
+        <select name="hour">
+          <%for(var i=0;i<=23;i++){%>
+            <%if(String(i).length==1){%>
+          <option value="<%='0'+i%>"><%='0'+i%></option>
+          <%  }else if(String(i).length>1){%>
+            <option value="<%=i%>"><%=i%></option>
+            <%  };%>
+          <%};%>
+        </select>時
+        <select name="minute">
+          <%for(var i=0;i<=59;i++){%>
+            <%if(String(i).length==1){%>
+          <option value="<%='0'+i%>"><%='0'+i%></option>
+      <%  }else if(String(i).length>1){%>
+          <option value="<%=i%>"><%=i%></option>
+      <%  };%>
+          <%};%>
+        </select>分〜
+        <br>
+        タイトル<br><input class="form_title" type="text" name="title" placeholder="タイトルを入力してください" required><br>
+        内容<br><textarea name="content" class=" form_content" placeholder="内容を入力してください※入力は必須です"required></textarea><br>
+        <input type="submit" value="update!">
+      </form>
+    </li>
+    <br>
+  </ul>
+  <%});%>
+</div>
