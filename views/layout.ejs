@@ -5,6 +5,8 @@
   <title><%=page_name%></title>
   <link rel = "stylesheet" type = "text/css" href = '/stylesheets/style.css' />
   <link rel = "stylesheet" type = "text/css" href = '/stylesheets/index.css' />
+  <link rel = "stylesheet" type = "text/css" href = '/stylesheets/register.css' />
+  <link rel = "stylesheet" type = "text/css" href = '/stylesheets/login.css' />
   <style>
   body{
     font-family:'小塚ゴシック Pro6N R','ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック', Arial, sans-serif;
@@ -17,12 +19,17 @@
     <div class="container">
       <div class="header_left">
 
-        <a href="#" class="app_title">ScheduleShare</a>
+        <a href="/" class="app_title">ScheduleShare</a>
       </div>
       <div class="header_right">
         <ul>
-          <li><%=user_name%> <span class="san">さん</span></li>
-          <li>logout</li>
+          <%if(typeof user !== 'undefined'){%>
+          <li><%=user.user_name%> <span class="san">さん</span></li>
+          <a href="/logout"><li>logout</li></a>
+          <%}else{%>
+            <li><a href="/register">サインアップ</a></li>
+            <a href="/logout"><li>login</li></a>
+            <%};%>
         </ul>
       </div>
     </div>

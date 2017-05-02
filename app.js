@@ -8,9 +8,14 @@ var bodyParser = require('body-parser');
 var connect        = require('connect');
 var methodOverride = require('method-override');
 var domain = require('express-domain-middleware');
+var session = require('express-session');
 
 var index = require('./routes/index');
+var register= require('./routes/register');
 var users = require('./routes/users');
+var login = require('./routes/login');
+var logout = require('./routes/logout');
+var setUser =require('./setUser');
 
 var app = express();
 
@@ -35,9 +40,17 @@ app.use(methodOverride(function(req, res){
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
 
-app.use('/', index);
+app.use('/',setUser, index);
+app.use('/register',register);
 app.use('/users', users);
+app.use('/login',login);
+app.use('/logout',logout);
 
 
 // catch 404 and forward to error handler

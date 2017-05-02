@@ -7,11 +7,15 @@ var connection = require('../mysqlConection');
 router.get('/', function(req, res, next) {
   var getQuery='SELECT *,DATE_FORMAT(scheduleAt, \'%Y/%m/%d %k:%i~\') AS scheduleAt FROM schedules';
   connection.query(getQuery,function(err,get){
+    var userId=req.session.user_id;
+    if(userId){
   res.render('index',{
   schedules: get,
-  page_name: 'Index',
-  user_name: '淳平'
+  page_name: 'Index'
 });
+}else{
+  res.redirect('/login');
+};
 });
 });
 
