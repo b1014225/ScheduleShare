@@ -1,0 +1,12 @@
+<% layout('layout') %>
+
+
+<form action='/profile/<%= user.id%>' method="post" enctype="multipart/form-data" class="">
+<input type="text" name="user_name" value="<%=user.user_name%>">
+<input type="text" name="email" value="<%=user.email%>">
+<input type="text" name="password" value="<%=user.password%>">
+<textarea name="text" value='<%=user.text%>'></textarea>
+<input type="file" name="prof_img_file" class="" required>
+<button type="submit" class="">更新</button>
+
+</form>

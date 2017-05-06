@@ -1,8 +1,10 @@
 
-.img{
+.prof_img{
   width:200px;
-  height:100px;
+  height:200px;
+  border-radius:100px;
 }
+
 
 #form_wrapper{
   width:100%;

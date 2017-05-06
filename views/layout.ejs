@@ -7,6 +7,7 @@
   <link rel = "stylesheet" type = "text/css" href = '/stylesheets/index.css' />
   <link rel = "stylesheet" type = "text/css" href = '/stylesheets/register.css' />
   <link rel = "stylesheet" type = "text/css" href = '/stylesheets/login.css' />
+  <link rel = "stylesheet" type = "text/css" href = '/stylesheets/profile.css' />
   <style>
   body{
     font-family:'小塚ゴシック Pro6N R','ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック', Arial, sans-serif;
@@ -24,7 +25,7 @@
       <div class="header_right">
         <ul>
           <%if(typeof user !== 'undefined'){%>
-          <li><%=user.user_name%> <span class="san">さん</span></li>
+          <a href="/profile/<%=user.id%>"><li><%=user.user_name%> <span class="san">さん</span></li></a>
           <a href="/logout"><li>logout</li></a>
           <%}else{%>
             <li><a href="/register">サインアップ</a></li>

@@ -1,26 +1,28 @@
 var express = require('express');
-var engine = require('ejs-locals');
+var engine = require('ejs-locals');//layout.jsに共通のejsを書くためのモジュール（リファクタリング）
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var connect        = require('connect');
-var methodOverride = require('method-override');
+var connect        = require('connect');//deleteとputメソッドを使うためのモジュール
+var methodOverride = require('method-override');//deleteとputメソッドを使うためのモジュール
 var domain = require('express-domain-middleware');
-var session = require('express-session');
+var session = require('express-session');//セッション
 
 var index = require('./routes/index');
 var register= require('./routes/register');
 var users = require('./routes/users');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
-var setUser =require('./setUser');
+var profile =require('./routes/profile');
+var edit_prof = require('./routes/edit_prof');
+var setUser =require('./setUser');//セッションに保存されてあるログインしたユーザーの情報を「user」に格納する処理をこのファイルにまとめてある。（リファクタリング）
 
 var app = express();
 
 // view engine setup
-app.engine('ejs', engine);
+app.engine('ejs', engine);//layout.jsのやつ
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -40,7 +42,7 @@ app.use(methodOverride(function(req, res){
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({
+app.use(session({//ここら辺いじればセッションの待機時間とか細かい設定が可能
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true
@@ -51,6 +53,8 @@ app.use('/register',register);
 app.use('/users', users);
 app.use('/login',login);
 app.use('/logout',logout);
+app.use('/profile',profile);
+app.use('/profile/edit',edit_prof);
 
 
 // catch 404 and forward to error handler

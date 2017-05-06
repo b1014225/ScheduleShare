@@ -16,11 +16,9 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   var email = req.body.email;
   var password = req.body.password;
-  var query = 'SELECT id FROM users WHERE email = "' + email + '" AND password = "' + password + '" LIMIT 1';
+  var query = 'SELECT id FROM users WHERE email = "' + email + '" AND password = "' + password + '" LIMIT 1';//limitで引っ張ってくる値の個数を指定
   connection.query(query, function(err, rows) {
-    console.log(rows);
-    var userId = rows.length? rows[0].id: false;
-    console.log(userId);
+    var userId = rows.length? rows[0].id: false;//三項演算子（条件式?真の場合に返す値:偽の場合に返す値）
     if (userId) {
       req.session.user_id = userId;
       res.redirect('/');
