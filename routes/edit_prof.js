@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var connection = require('../mysqlConection');
 var multer = require('multer');//画像の情報をアップロードするためのモジュール
-var upload = multer({ dest: './public/images/uploads/' });
+var upload = multer({ dest: './public/images/uploads/' });//画像のアップロード先の設定
 
 router.get('/:user_id',function(req,res,next){
   var userId_s=req.session.user_id;
