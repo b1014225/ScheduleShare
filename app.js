@@ -7,8 +7,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var connect        = require('connect');//deleteとputメソッドを使うためのモジュール
 var methodOverride = require('method-override');//deleteとputメソッドを使うためのモジュール
-var domain = require('express-domain-middleware');
 var session = require('express-session');//セッション
+var domain = require('express-domain-middleware');//Rethrow non-MySQL errorsというエラーをなくすために入れたモジュール
+
+
 
 var index = require('./routes/index');
 var register= require('./routes/register');
@@ -17,6 +19,7 @@ var login = require('./routes/login');
 var logout = require('./routes/logout');
 var profile =require('./routes/profile');
 var edit_prof = require('./routes/edit_prof');
+var test = require('./routes/test');
 var setUser =require('./setUser');//セッションに保存されてあるログインしたユーザーの情報を「user」に格納する処理をこのファイルにまとめてある。（リファクタリング）
 
 var app = express();
@@ -55,6 +58,7 @@ app.use('/login',login);
 app.use('/logout',logout);
 app.use('/profile',profile);
 app.use('/profile/edit',edit_prof);
+app.use('/test',test);
 
 
 // catch 404 and forward to error handler

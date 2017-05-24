@@ -22,9 +22,11 @@
 
         <a href="/" class="app_title">ScheduleShare</a>
       </div>
+
       <div class="header_right">
         <ul>
           <%if(typeof user !== 'undefined'){%>
+            <img src="<%=user.image_path%>" class="prof_img prof_small">
           <a href="/profile/<%=user.id%>"><li><%=user.user_name%> <span class="san">さん</span></li></a>
           <a href="/logout"><li>logout</li></a>
           <%}else{%>

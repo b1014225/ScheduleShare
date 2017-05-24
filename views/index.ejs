@@ -1,8 +1,11 @@
  <% layout('layout') %>
 <div class="container">
 <div id="form_wrapper">
-
-  <img src="/images/saiko.png" class='prof_img'>
+  <%if(user.image_path !=null){%>
+    <a href="/profile/<%=user.id%>"><img src="<%= user.image_path %>" class="prof_img"></a>
+  <%}else{%>
+    <img src="/images/saiko.png" class="prof_img">
+    <%};%>
 
 <form action="/" method="post" class="form">
   日付/時刻
@@ -51,14 +54,17 @@
 <% schedules.forEach(function(sche){%>
   <ul>
     <li>
+      <img src="<%= sche.image_path%>" class="prof_img prof_small"><%= sche.user_name%>さんのスケジュールです
+    </li>
+    <li>
       タイトル：<%=sche.title%>
     </li>
     <li>
       内容：<%=sche.content%>
     </li>
     <li>
-      <%=sche.scheduleAt%><%=sche.id%><form action="/<%=sche.id%>" method="post"><input type="hidden" name="_method" value="DELETE"><input type="submit" value="delete!"></form>
-      <form action="/<%=sche.id%>" method="post"><input type="hidden" name="_method" value="PUT">
+      <%=sche.scheduleAt%><form action="/<%=sche.id%>" method="post"><input type="hidden" name="_method" value="DELETE"><input type="submit" value="delete!"></form>
+      <form action="/<%=sche.id%>" method="post" ><input type="hidden" name="_method" value="PUT">
         日付/時刻
         <br>
         <select name="year">
@@ -97,6 +103,7 @@
         <br>
         タイトル<br><input class="form_title" type="text" name="title" placeholder="タイトルを入力してください" required><br>
         内容<br><textarea name="content" class=" form_content" placeholder="内容を入力してください※入力は必須です"required></textarea><br>
+
         <input type="submit" value="update!">
       </form>
     </li>

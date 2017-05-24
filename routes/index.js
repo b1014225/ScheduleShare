@@ -5,18 +5,25 @@ var connection = require('../mysqlConection');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var getQuery='SELECT *,DATE_FORMAT(scheduleAt, \'%Y/%m/%d %k:%i~\') AS scheduleAt FROM schedules';
+  var userId=req.session.user_id;
+  var getQuery = 'SELECT S.id, S.title,S.content,DATE_FORMAT(S.scheduleAt, \'%Y/%m/%d %k:%i~\') AS scheduleAt,S.user_id,U.user_name,U.image_path FROM schedules S LEFT OUTER JOIN users U ON S.user_id = U.id ORDER BY S.scheduleAt';
+  var Query='SELECT *,DATE_FORMAT(scheduleAt, \'%Y/%m/%d %k:%i~\') AS scheduleAt FROM schedules';
+  if(userId){
   connection.query(getQuery,function(err,get){
-    var userId=req.session.user_id;
-    if(userId){
+    var get1Query='SELECT * FROM users WHERE id="'+userId+'"';
+  connection.query(get1Query,function(err,get1){
+    console.log(get);
+    console.log(get1);
   res.render('index',{
   schedules: get,
-  page_name: 'Index'
+  page_name: 'Index',
+  user:get1[0]
+});
+});
 });
 }else{
   res.redirect('/login');
 };
-});
 });
 
 router.post('/',function(req,res,next){
@@ -27,8 +34,9 @@ router.post('/',function(req,res,next){
   var day =req.body.day;
   var hour=req.body.hour;
   var minute=req.body.minute;
+  var userId =req.session.user_id;
   var scheduleAt=moment({years:year,months:month,days:day,hours:hour,minutes:minute,seconds:null}).format('YYYY-MM-DD HH:mm:ss');
-  var setQuery='INSERT INTO schedules (title,content,scheduleAt) VALUES ("' + title + '" , ' + '"' + content + '",'+'"'+scheduleAt+'")';
+  var setQuery='INSERT INTO schedules (title,content,scheduleAt,user_id) VALUES ("' + title + '" , ' + '"' + content + '",'+'"'+scheduleAt+'",'+'"'+userId+'")';
   connection.query(setQuery,function(err,rows){
     res.redirect('/');
   });

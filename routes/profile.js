@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var moment = require('moment');
 var connection = require('../mysqlConection');
 
 
@@ -20,6 +19,8 @@ router.get('/:user_id',function(req,res,next){
   res.redirect('/login');
 };
 });
+
+
 
 
 module.exports = router;

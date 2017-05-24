@@ -1,12 +1,33 @@
 <% layout('layout') %>
 
+<div class="prof_upload">
 
-<form action='/profile/<%= user.id%>' method="post" enctype="multipart/form-data" class="">
-<input type="text" name="user_name" value="<%=user.user_name%>">
-<input type="text" name="email" value="<%=user.email%>">
-<input type="text" name="password" value="<%=user.password%>">
-<textarea name="text" value='<%=user.text%>'></textarea>
-<input type="file" name="prof_img_file" class="" required>
-<button type="submit" class="">更新</button>
+  <img src="<%=user.image_path%>" class="prof_img">
+  <form action="/profile/edit/<%=user.id%>" method="post" enctype="multipart/form-data" class="prof_img_update">
+  <input type="file" name="prof_img_file" class="file" >
+  <br>
+  <input type="submit" value="写真を変更" class="buttonType">
+  </form>
 
+<form action="/profile/edit/<%=user.id%>" method="post">
+  <ul>
+  <input type="hidden" name="_method" value="PUT">
+<li>
+  名前：<input type="text" name="user_name" value="<%=user.user_name%>">
+</li>
+<li>
+  E-mail:<input type="text" name="email" value="<%=user.email%>">
+</li>
+<li>
+  パスワード：<input type="text" name="password" value="<%=user.password%>">
+</li>
+<li>
+  自分メモ：<textarea name="text"><%=user.text%></textarea>
+</li>
+<li>
+  <input type="submit" value="プロフィール更新" class="buttonType"><!--putやdeleteを使うときは、buttonではうまく送れない-->
+</li>
+</ul>
 </form>
+
+</div>

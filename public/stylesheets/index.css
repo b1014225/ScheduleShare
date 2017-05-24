@@ -3,6 +3,14 @@
   width:200px;
   height:200px;
   border-radius:100px;
+  border:2px solid #858080;
+}
+
+.prof_small{
+  width:25px;
+  height:25px;
+  float:left;
+  margin-right: 10px;
 }
 
 

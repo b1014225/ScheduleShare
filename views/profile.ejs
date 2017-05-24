@@ -1,8 +1,22 @@
 <% layout('layout') %>
 
 <div id="profile">
-<img src="/images/saiko.png" class="prof_img">
-<%= user.user_name %>
-<%= user.id %>
 
-<a href="/profile/edit/<%=user.id%>">編集</a>
+  <%if(user.image_path !=null){%>
+    <img src="<%= user.image_path %>" class="prof_img">
+  <%}else{%>
+    <img src="/images/saiko.png" class="prof_img">
+    <%};%>
+
+  <ul>
+    <li>
+  <%= user.user_name %>
+</li>
+<li>
+  <%= user.email%>
+</li>
+<li>
+  <%= user.text%>
+</li>
+</ul>
+<a href="/profile/edit/<%=user.id%>" class="buttonType">編集</a>
